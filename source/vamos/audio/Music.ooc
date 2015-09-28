@@ -1,8 +1,8 @@
-use vamos, vorbis
+use vamos, stb-vorbis
 import sdl2/Audio
 import vamos/Util
 import vamos/audio/[Mixer, AudioSource]
-import vorbis
+import stb-vorbis
 
 /**
  * Uses ooc-vorbis (libvorbisfile bindings) to stream a .ogg file

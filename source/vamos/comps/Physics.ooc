@@ -7,7 +7,7 @@ Physics: class extends Component {
 	types:ArrayList<String>
 	
 	/// Return true to collide, return false to keep moving
-	onCollide: Func(Entity)->Bool = defaultHandler
+    onCollide: Func(Entity)->Bool = (defaultHandler,null) as Func(Entity)->Bool
 	
 	velX, velY: Float
 	accX, accY: Float

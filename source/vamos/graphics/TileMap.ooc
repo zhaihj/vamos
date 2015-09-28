@@ -44,7 +44,7 @@ TileMap: class extends Graphic {
 	resize: func(=w, =h) {
 		width = w * baseTileWidth
 		height = h * baseTileHeight
-		if (data) gc_realloc(w * h * UInt size)
+		if (data) data = gc_realloc(data, w * h * UInt size)
 	}
 	
 	setTileArea: func(=tileOffsetX, =tileOffsetY, =baseTileWidth, =baseTileHeight) {
@@ -93,7 +93,7 @@ TileMap: class extends Graphic {
 		}
 	}
 	
-	draw: func (renderer:Screen, entity:Entity, x, y:Float) {
+	draw: func (renderer: Screen, entity: Entity, x, y: Float) {
 		if (!data) return
 		
 		startX:Int = (renderer camX - entity x) / baseTileWidth - 1
@@ -103,12 +103,12 @@ TileMap: class extends Graphic {
 		offX := startX * baseTileWidth - (renderer camX - entity x)
 		offY := startY * baseTileHeight - (renderer camY - entity y)
 		
-		for (x in 0..screenW) {
-			dstRect x = offX + x * baseTileWidth - tileOffsetX
+		for (x1 in 0..screenW) {
+			dstRect x = offX + x1 * baseTileWidth - tileOffsetX
 			dstRect y = offY - tileOffsetY
 			
-			for (y in 0..screenH) {
-				val := get(x+startX, y+startY)
+			for (y1 in 0..screenH) {
+				val := get(x1+startX, y1+startY)
 				if (val >= firstValue) {
 					val -= firstValue
 					srcRect x = val % sourceW * dstRect w

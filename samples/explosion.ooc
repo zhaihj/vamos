@@ -13,7 +13,7 @@
 
 use vamos
 import vamos/[Engine, Scene, Entity, Component, Input]
-import vamos/graphics/[FilledRect, Label]
+import vamos/graphics/[FilledRect, Label, TTFLabel]
 import vamos/masks/Hitbox
 import math/Random
 
@@ -34,6 +34,7 @@ PlayScene: class extends Scene {
 	speed := 1.0f
 	score := 0.0f
 	label: Label = Label new("font.png", 6, 10, "")
+    tlabel: TTFLabel = TTFLabel new("ipag-mona.ttf", 32)
 	running := true
 	
 	init: func
@@ -41,11 +42,11 @@ PlayScene: class extends Scene {
 	create: func {
 		add(Player new(40, 40))
 		for (i in 0..100) add(Enemy new(390, 240))
-		addGraphic(label, 2, 2)
+		addGraphic(tlabel, 2, 2)
 		on("game_over", ||
 			running = false
 			speed = 0.4
-			label text = "Game Over!\nYou scored: %.2f\nPress SPACE to restart." format(score)
+			tlabel text("ゲームオーバー！\nGame Over!\nYou scored: %.2f\nPress SPACE to restart." format(score))
 		)
 	}
 	
@@ -53,7 +54,7 @@ PlayScene: class extends Scene {
 		super(dt*speed)
 		if (running) {
 			score += dt
-			label set(score toString())
+            tlabel text("スコア：%f" format(score))
 		} else if (Input pressed("space")) {
 			vamos scene = PlayScene new()
 		}
@@ -92,7 +93,7 @@ Enemy: class extends Entity {
 	init: func (=x, =y) {
 		size := Random randInt(10, 30)
 		mask = Hitbox new(size, size)
-		graphic = FilledRect new(size, size, 0xffff0000 + Random randInt(0, 0x2222))
+		graphic = FilledRect new(size, size, 255, Random randInt(0,34), Random randInt(0,255))
 		type = "enemy"
 		
 		velX = Random randInt(-100, 100)

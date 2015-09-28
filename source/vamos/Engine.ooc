@@ -1,5 +1,5 @@
 use sdl2
-import sdl2/Core
+import sdl2/[Core, TTF]
 import vamos/[Util, Input, AssetCache, Scene, SceneManager]
 import vamos/display/[Screen, Bitmap]
 import vamos/audio/Mixer
@@ -66,6 +66,7 @@ Engine: class {
 		mixer = Mixer new()
 		sceneManager = SceneManager new()
 		screen = Screen new(window, renderer)
+        TTF init()
 	}
 	
 	init: func ~defaultFramerate (.width, .height, .scale) {
@@ -129,5 +130,6 @@ Engine: class {
 		SDL destroyWindow(window)
 		SDL quit()
 		mixer mutex unlock()
+        TTF quit()
 	}
 }

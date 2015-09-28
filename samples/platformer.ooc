@@ -69,7 +69,7 @@ Player: class extends Entity {
 		graphic = PlayerAnim new(this)
 	}
 	
-	update: func (dt:Double) {
+	update: func (dt:Float) {
 		onFloor = collide("walls", x, y+1)
 	}
 	
